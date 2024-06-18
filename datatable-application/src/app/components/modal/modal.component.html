@@ -1,0 +1,16 @@
+<div class="modal">
+  <div class="modal-content">
+    <span class="close" (click)="closeModal()">&times;</span>
+    <h2>Edit Comment</h2>
+    <form>
+      <label for="email">Email:</label>
+      <input id="email" [(ngModel)]="tempComment.email" name="email" />
+      <label for="name">Name:</label>
+      <input id="name" [(ngModel)]="tempComment.name" name="name" />
+      <label for="body">Body:</label>
+      <textarea id="body" [(ngModel)]="tempComment.body" name="body"></textarea>
+      <button class="save-button" type="button" (click)="saveChanges()">Save</button>
+    </form>
+  </div>
+</div>
+
