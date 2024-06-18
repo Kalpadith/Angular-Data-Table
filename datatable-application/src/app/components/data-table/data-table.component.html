@@ -1,0 +1,64 @@
+<div *ngIf="loading" class="loading">Loading...
+</div>
+<h1 class="header">Comments DataTable</h1>
+<div *ngIf="!loading">
+  <div>
+    <div class="select-container">
+      <input class="search-bar" type="text" [formControl]="searchControl" placeholder="Search..." />
+      <span>Page Size:</span>
+      <div class="select-text-container">
+        <select class="custom-select" (change)="onItemsPerPageChange($event)">
+          <option class="custom-option" *ngFor="let option of itemsPerPageOptions" [value]="option">{{option}}</option>
+        </select>
+      </div>
+    </div>
+    <div class="sort-container">
+      <span>Sort Table:</span>
+      <select (change)="onSortKeyChange($event)">
+        <option hidden disabled selected value="">Sort by...</option>
+        <option value="id">ID</option>
+        <option value="email">Email</option>
+      </select>
+      
+      <select (change)="onSortDirectionChange($event)">
+        <option hidden disabled selected value="">Sort direction...</option>
+        <option value="asc">Ascending</option>
+        <option value="desc">Descending</option>
+      </select>
+    </div>
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Email</th>
+            <th>Name</th>
+            <th>Body</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let comment of displayedComments">
+            <td>{{ comment.id }}</td>
+            <td>{{ comment.email }}</td>
+            <td>{{ comment.name }}</td>
+            <td>{{ comment.body }}</td>
+            <td>
+              <button class="update-button" (click)="editComment(comment)">Edit</button>
+              <button class="delete-button" (click)="deleteComment(comment.id)">Delete</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      
+      <div class="pg-btn-container">
+        <button class="previous-button" (click)="changePage(currentPage - 1)" [disabled]="currentPage === 1">&lt;&lt;Previous</button>
+        <span>Page {{ currentPage }}</span>
+        <button class="next-button" (click)="changePage(currentPage + 1)" [disabled]="!hasNextPage()">Next&gt;&gt;</button>
+      </div>
+
+<app-modal
+  *ngIf="selectedComment"
+  [comment]="selectedComment"
+  (save)="saveComment($event)"
+  (close)="closeModal()"
+></app-modal>
