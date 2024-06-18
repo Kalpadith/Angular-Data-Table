@@ -3,10 +3,12 @@ import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormControl } from '@angular/forms';
 import { debounceTime } from 'rxjs/operators';
 import { DataService } from '../../services/data.service';
+import { ModalComponent } from '../modal/modal.component';
 
 @Component({
   selector: 'app-data-table',
   standalone: true,
+  imports: [CommonModule, ReactiveFormsModule, ModalComponent],
   templateUrl: './data-table.component.html',
   styleUrls: ['./data-table.component.css']
 })
